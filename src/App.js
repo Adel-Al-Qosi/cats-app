@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import fetchCatImage from "./api";
+import {
+  fetchCatImage,
+  fetchCatsImages
+} from "./api";
+import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import CatsGallery from "./components/CatsGallery";
 
 function App() {
-  const [imageUrl, setImageUrl] = useState("");
-
-  const handleClick = () => {
-    fetchCatImage()
-      .then((url) => setImageUrl(url))
-      .catch((error) => console.log(error));
-  };
 
   return (
-    <div>
-      <button onClick={handleClick}>Get cat image</button>
-      {imageUrl && <img src={imageUrl} alt="A cute cat" />}
-    </div>
+    <BrowserRouter>
+        <Routes>
+          <Route exact path='/' element={<Home />} />
+          <Route path='/cats-gallery' element={<CatsGallery />} />
+        </Routes>
+    </BrowserRouter>
   );
 }
 
